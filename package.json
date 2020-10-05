@@ -1,0 +1,17 @@
+{
+  "name": "test-svc-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "serverless package"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless": "^2.4.0",
+    "serverless-apigateway-service-proxy": "git+https://github.com/ajhaining/serverless-apigateway-service-proxy.git"
+  }
+}

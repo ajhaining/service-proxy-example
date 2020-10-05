@@ -1,0 +1,35 @@
+service: test-svc-proxy
+
+frameworkVersion: ">=1.1.0 <=2.4.0"
+
+plugins:
+  - serverless-apigateway-service-proxy
+
+provider:
+  name: aws
+  region: eu-west-1
+  stackName: test-svc-proxy
+
+custom:
+  apiGatewayServiceProxies:
+    - sns:
+        path: /sns
+        method: post
+        topicName: { 'Fn::GetAtt': ['SNSTopic', 'TopicName'] }
+        cors: true
+        response:
+          template:
+            # `success` is used when the integration response is 200
+            success: |-
+              { "message: "accepted" }
+            # `clientError` is used when the integration response is 400
+            clientError: |-
+              { "message": "there is an error in your request" }
+            # `serverError` is used when the integration response is 500
+            serverError: |-
+              { "message": "there was an error handling your request" }
+
+resources:
+  Resources:
+    SNSTopic:
+      Type: AWS::SNS::Topic
